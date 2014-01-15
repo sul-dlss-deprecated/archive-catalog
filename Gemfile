@@ -1,3 +1,6 @@
+# If the Ruby version being use does not match, Bundler will raise an exception
+ruby '2.1.0'
+
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -32,6 +35,7 @@ gem 'jbuilder', '~> 1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
+  #noinspection RubyArgCount
   gem 'sdoc', require: false
 end
 
