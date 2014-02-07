@@ -1,5 +1,7 @@
 class DigitalObjectsController < ApplicationController
   before_action :set_digital_object, only: [:show, :edit, :update, :destroy]
+  # Allows modify of database without an authenticity token see also ApplicationController
+  skip_before_filter :verify_authenticity_token, only: [:create, :update]
 
   # GET /digital_objects
   # GET /digital_objects.json
@@ -23,6 +25,11 @@ class DigitalObjectsController < ApplicationController
 
   # POST /digital_objects
   # POST /digital_objects.json
+  # if posting JSON, (content-type = application/json), posted data should look like:
+  # {"digital_object": {
+  #    "digital_object_id": "druid:gg",
+  #    "home_repository": "ggg"
+  #     } }
   def create
     @digital_object = DigitalObject.new(digital_object_params)
 
@@ -69,6 +76,6 @@ class DigitalObjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def digital_object_params
-      params.require(:digital_object).permit(:home_repository)
+      params.require(:digital_object).permit(:digital_object_id,:home_repository)
     end
 end
