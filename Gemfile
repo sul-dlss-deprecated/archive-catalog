@@ -42,6 +42,9 @@ end
 # https://github.com/codez/dry_crud
 gem 'dry_crud'
 
+# https://github.com/composite-primary-keys/composite_primary_keys
+gem 'composite_primary_keys'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
