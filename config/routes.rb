@@ -1,6 +1,7 @@
 ArchiveCatalog::Application.routes.draw do
   resources :digital_objects
   resources :sdr_objects
+  resources :sdr_object_versions
 
   get "welcome/index"
   # The priority is based upon order of creation: first created -> highest priority.
