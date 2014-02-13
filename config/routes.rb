@@ -17,8 +17,14 @@ ArchiveCatalog::Application.routes.draw do
   #   resources :products
 
   resources :digital_objects
+  resources :dpn_objects
   resources :sdr_objects
   resources :sdr_object_versions
+  resources :sdr_version_stats
+  resources :replicas
+  resources :tape_archives
+  resources :tape_replicas
+  resources :dpn_replicas
 
   # Example resource route with options:
   #   resources :products do
