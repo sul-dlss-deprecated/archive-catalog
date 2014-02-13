@@ -1,9 +1,4 @@
 ArchiveCatalog::Application.routes.draw do
-  resources :digital_objects
-  resources :sdr_objects
-  resources :sdr_object_versions
-
-  get "welcome/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -13,11 +8,17 @@ ArchiveCatalog::Application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
+  get "welcome/index"
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+
+  resources :digital_objects
+  resources :sdr_objects
+  resources :sdr_object_versions
 
   # Example resource route with options:
   #   resources :products do
