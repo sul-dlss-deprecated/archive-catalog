@@ -59,7 +59,7 @@ class CrudController < ListController
   #   POST /entries.json
   def create(options = {}, &block)
     assign_attributes
-    created = with_callbacks(:create, :save) { entry.save }
+    created = with_callbacks(:create, :save) {entry.save}
     respond_options = options.reverse_merge(success: created)
     respond_with(entry, respond_options, &block)
   end
@@ -107,19 +107,38 @@ class CrudController < ListController
 
   #############  CUSTOMIZABLE HELPER METHODS  ##############################
 
-  # Main accessor method for the handled model entry.
-  def entry
-    get_model_ivar || set_model_ivar(params[:id] ? find_entry : build_entry)
+
+  def to_boolean(value)
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value.to_s.downcase)
   end
 
-  # Creates a new model entry.
+  # Main accessor method for the handled model entry.  params is_a {ActionController::Parameters}
+  def entry
+    #get_model_ivar || set_model_ivar(params[:id] ? find_entry : build_entry)
+    get_model_ivar || set_model_ivar(find_entry || build_entry)
+
+  end
+
+  # Creates a new model entry. [ActiveRecord::Relation]
   def build_entry
     model_scope.new
   end
 
-  # Sets an existing model entry from the given id.
+  # [ActiveRecord::Relation].first -> ActiveRecord::Base Sets an existing model entry from the given id.
   def find_entry
-    model_scope.find(params[:id])
+    ms = model_scope
+    if params[:id]
+      # Request actions that retrieve existing records (e.g. show, edit, update, destroy) set an 'id' param
+      # The +find+ method raises ActiveRecord::RecordNotFound if no database item has this primary key
+      ms.find(params[:id])
+    elsif params[ms.primary_key]
+      # This modification allows the create action to succeed even if the item already exists
+      # The +where...first+ methods returns the item from the database or nil if not found
+      ms.where(ms.primary_key => params[ms.primary_key]).first
+    else
+      # Otherwise return nil so that built_entry will be called
+      nil
+    end
   end
 
   # Assigns the attributes from the params to the model entry.
@@ -186,6 +205,8 @@ class CrudController < ListController
       before_render_new(*methods)
       before_render_edit(*methods)
     end
+
+
   end
 
 end
