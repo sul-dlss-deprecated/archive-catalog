@@ -5,7 +5,7 @@ class SdrVersionStat  < ActiveRecord::Base
   validates :sdr_object_id, :presence => true
   validates :sdr_version_id, :presence => true
 
-  # Output a human-friendly label for this entity in captions (e.g. for html titles )
+  # @return [String] the %{model} instance identifier string used in flashes or other captions.  See config/locales files
   def to_s
     "#{sdr_object_id}-#{version_dirname}"
   end
