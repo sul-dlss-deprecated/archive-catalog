@@ -51,8 +51,12 @@ gem 'composite_primary_keys'
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
+group :development do
+  # Use Capistrano for deployment
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-bundler', '~> 1.1'
+  gem 'lyberteam-capistrano-devel', '~> 3.0'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

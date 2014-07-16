@@ -75,8 +75,8 @@ class CrudController < ListController
   # To customize the response, you may overwrite this action and call
   # super with a block that gets the format parameter.
   # Specify a :location option if you wish to do a custom redirect.
-  #   PUT /entries/1
-  #   PUT /entries/1.json
+  #   PATCH or PUT /entries/1
+  #   PATCH or PUT /entries/1.json
   def update(options = {}, &block)
     assign_attributes
     updated = with_callbacks(:update, :save) { entry.save }
