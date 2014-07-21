@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '~>4.1'
 
 # Use oracle as the database for Active Record
 gem 'ruby-oci8'
@@ -53,6 +53,7 @@ group :development do
   # Use Capistrano for deployment
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler', '~> 1.1'
+  gem 'capistrano-rvm', '~> 0.1'
   gem 'lyberteam-capistrano-devel', '~> 3.0'
 end
 

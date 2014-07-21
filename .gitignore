@@ -23,6 +23,7 @@
  
 # Ignore RVM files
 /.rvmrc
+/.ruby-version
 
 # Ignore Yard documentation files
 /.yardoc
