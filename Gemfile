@@ -8,16 +8,16 @@ gem 'rails', '~>4.1'
 gem 'ruby-oci8'
 
 # Oracle enhanced ActiveRecord adapter provides Oracle database access from Ruby on Rails applications
-gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+gem "activerecord-oracle_enhanced-adapter", "~> 1.5"
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 1.3'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -29,7 +29,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -41,15 +41,18 @@ end
 gem 'dry_crud'
 
 # https://github.com/composite-primary-keys/composite_primary_keys
-gem 'composite_primary_keys'
+gem 'composite_primary_keys', '~> 7.0'
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
+# gem 'bcrypt', '~> 3.1.7' # formerly bcrypt-ruby
 
 # Use unicorn as the app server
 # gem 'unicorn'
 
-group :development do
+# Do not place the capistrano-related gems in the default or development bundle group
+# Otherwise the config/application.rb's Bundle.require command will try to load them
+# leading to failure because these gem's rake task files use capistrano DSL.
+group :deployment do
   # Use Capistrano for deployment
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler', '~> 1.1'

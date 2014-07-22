@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-ArchiveCatalog::Application.config.secret_key_base = '9ad906506cfa3122bc18904bcbfbf520165d1fa4a7a52c24782b0efa040c93043d051dae1bb037dd39071ddcb037e229ec19e865f3ac0ae5959017c8cd589a1f'
+Rails.application.config.secret_key_base = '9ad906506cfa3122bc18904bcbfbf520165d1fa4a7a52c24782b0efa040c93043d051dae1bb037dd39071ddcb037e229ec19e865f3ac0ae5959017c8cd589a1f'
