@@ -49,7 +49,7 @@ gem 'composite_primary_keys', '~> 7.0'
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Do not place the capistrano-related gems in the default or development bundle group
+# Do not place the capistrano-related gems in the default or Rails.env bundle group
 # Otherwise the config/application.rb's Bundle.require command will try to load them
 # leading to failure because these gem's rake task files use capistrano DSL.
 group :deployment do
