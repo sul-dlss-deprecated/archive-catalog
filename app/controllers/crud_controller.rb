@@ -50,7 +50,7 @@ class CrudController < ListController
     respond_with(entry, &block)
   end
 
-  # Create a new entry of this model from the passed params.
+  # Create a new entry of this model from the passed params or update existing record
   # There are before and after create callbacks to hook into the action.
   # To customize the response, you may overwrite this action and call
   # super with a block that gets the format parameter.
@@ -132,9 +132,19 @@ class CrudController < ListController
       # The +find+ method raises ActiveRecord::RecordNotFound if no database item has this primary key
       ms.find(params[:id])
     elsif params[ms.primary_key]
+      # Primary key is a single value provided in the params hash
       # This modification allows the create action to succeed even if the item already exists
       # The +where...first+ methods returns the item from the database or nil if not found
       ms.where(ms.primary_key => params[ms.primary_key]).first
+    elsif ms.primary_key.instance_of? CompositePrimaryKeys::CompositeKeys
+      # primary key is composed of multiple values
+      if (ms.primary_key - params.keys).empty?
+        # param values are present for all the primary keys
+        pk_values = ms.primary_key.map{|k| params[k]}
+        ms.find(pk_values)
+      else
+        nil
+      end
     else
       # Otherwise return nil so that built_entry will be called
       nil
