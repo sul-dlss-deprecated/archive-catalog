@@ -23,6 +23,7 @@
  
 # Ignore RVM files
 /.rvmrc
+/.ruby-version
 
 # Ignore Yard documentation files
 /.yardoc
@@ -33,8 +34,11 @@
 /coverage/
 
 # Ignore Files containing sensitive info
-/config/certs/
-/config/environments/
 /config/database.yml
+config/deploy/*
+!config/deploy/development.rb
+config/environments/*
+!config/environments/development.rb
+
 
 

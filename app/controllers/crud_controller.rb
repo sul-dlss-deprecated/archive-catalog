@@ -50,7 +50,7 @@ class CrudController < ListController
     respond_with(entry, &block)
   end
 
-  # Create a new entry of this model from the passed params.
+  # Create a new entry of this model from the passed params or update existing record
   # There are before and after create callbacks to hook into the action.
   # To customize the response, you may overwrite this action and call
   # super with a block that gets the format parameter.
@@ -75,8 +75,8 @@ class CrudController < ListController
   # To customize the response, you may overwrite this action and call
   # super with a block that gets the format parameter.
   # Specify a :location option if you wish to do a custom redirect.
-  #   PUT /entries/1
-  #   PUT /entries/1.json
+  #   PATCH or PUT /entries/1
+  #   PATCH or PUT /entries/1.json
   def update(options = {}, &block)
     assign_attributes
     updated = with_callbacks(:update, :save) { entry.save }
@@ -113,10 +113,34 @@ class CrudController < ListController
   end
 
   # Main accessor method for the handled model entry.  params is_a {ActionController::Parameters}
+  # Returns the model instance corresponding to a table row found using a primary key
+  # this method is shared by all CRUD operations
   def entry
-    #get_model_ivar || set_model_ivar(params[:id] ? find_entry : build_entry)
-    get_model_ivar || set_model_ivar(find_entry || build_entry)
+    # originally, this method was a single line
+    #   get_model_ivar || set_model_ivar(params[:id] ? find_entry : build_entry)
+    # but we enhanced it so that POST (create) acts like *add or update*
 
+    # return the previously cached entry if it exists
+    ivar = get_model_ivar
+    return ivar if ivar
+    begin
+      # find the existing entry (table row) using the params supplied with the request
+      # (either as an {id} param or as a set of key/value pairs)
+      ivar = find_entry
+    rescue ActiveRecord::RecordNotFound => notfound
+      if params[:id]
+        # For requests where the primary key is provided as an {id} param,
+        # if the table row was not found, we should return the 404 error to the client
+        raise notfound
+      end
+      # probably unnecessary
+      ivar = nil
+    end
+    # For the NEW or POST (create or update) operation, we will build the entry if it does not yet exist
+    ivar = build_entry unless ivar
+    # cache the entry for the next time it is needed
+    set_model_ivar(ivar)
+    ivar
   end
 
   # Creates a new model entry. [ActiveRecord::Relation]
@@ -125,20 +149,29 @@ class CrudController < ListController
   end
 
   # [ActiveRecord::Relation].first -> ActiveRecord::Base Sets an existing model entry from the given id.
+  # try every possible way to find an existing row corresponding to the primary key
+  # raises ActiveRecord::RecordNotFound if the entry is not in the table
   def find_entry
     ms = model_scope
+    result = nil
     if params[:id]
-      # Request actions that retrieve existing records (e.g. show, edit, update, destroy) set an 'id' param
+      # Requests that retrieve existing records (e.g. show, edit, update, destroy) set an 'id' param
       # The +find+ method raises ActiveRecord::RecordNotFound if no database item has this primary key
-      ms.find(params[:id])
+      result = ms.find(params[:id])
     elsif params[ms.primary_key]
+      # Primary key is a single value provided in the params hash
       # This modification allows the create action to succeed even if the item already exists
       # The +where...first+ methods returns the item from the database or nil if not found
-      ms.where(ms.primary_key => params[ms.primary_key]).first
-    else
-      # Otherwise return nil so that built_entry will be called
-      nil
+      result = ms.where(ms.primary_key => params[ms.primary_key]).first
+    elsif ms.primary_key.instance_of? CompositePrimaryKeys::CompositeKeys
+      # primary key is composed of multiple values
+      if (ms.primary_key - params.keys).empty?
+        # param values are present for all the primary keys
+        pk_values = ms.primary_key.map{|k| params[k]}
+        result = ms.find(pk_values)
+      end
     end
+    result
   end
 
   # Assigns the attributes from the params to the model entry.
