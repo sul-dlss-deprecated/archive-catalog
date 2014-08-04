@@ -37,8 +37,14 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# dry_crud generates simple and extendable controllers, views and helpers
+# that support you to DRY up the CRUD code in your Rails projects.
 # https://github.com/codez/dry_crud
 gem 'dry_crud'
+
+# For adding pagination to lists
+# https://github.com/amatsuda/kaminari
+gem 'kaminari'
 
 # https://github.com/composite-primary-keys/composite_primary_keys
 gem 'composite_primary_keys', '~> 7.0'

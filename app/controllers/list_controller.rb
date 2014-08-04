@@ -45,7 +45,8 @@ class ListController < ApplicationController
   # <tt>ActiveRecord::Relation</tt>.
   # Some of the modules included extend this method.
   def list_entries
-    model_class.respond_to?(:list) ? model_scope.list : model_scope
+    #model_class.respond_to?(:list) ? model_scope.list : model_scope
+    model_scope.page(params[:page])
   end
 
   # Include these modules after the #list_entries method is defined.
