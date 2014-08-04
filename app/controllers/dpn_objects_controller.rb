@@ -5,4 +5,6 @@ class DpnObjectsController < CrudController
 
   self.default_sort = 'dpn_object_id'
 
+  self.search_columns = [:dpn_object_id]
+
 end

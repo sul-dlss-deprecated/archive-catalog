@@ -4,6 +4,6 @@ class TapeArchivesController < CrudController
 
   self.default_sort = 'tape_archive_id'
 
-  self.search_columns = [:tape_archive_id]
+  self.search_columns = [:tape_archive_id, :tape_node]
 
 end

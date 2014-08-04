@@ -4,6 +4,6 @@ class DpnReplicasController < CrudController
 
   self.default_sort = 'replica_id'
 
-  self.search_columns = [:replica_id]
+  self.search_columns = [:replica_id, :dpn_object_id]
 
 end

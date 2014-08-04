@@ -6,6 +6,6 @@ class SdrVersionStatsController < CrudController
 
   self.default_sort = 'sdr_object_id', 'sdr_version_id'
 
-  self.search_columns = [:sdr_object_id]
+  self.search_columns = [:sdr_object_id, :inventory_type]
 
 end
