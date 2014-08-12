@@ -1,4 +1,4 @@
-class ReplicasController < CrudController
+class NewReplicasController < CrudController
 
   self.permitted_attrs = [:replica_id, :home_repository, :create_date, :payload_size, :payload_fixity_type, :payload_fixity]
 

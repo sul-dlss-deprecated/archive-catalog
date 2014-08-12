@@ -45,12 +45,18 @@ class ListController < ApplicationController
   # <tt>ActiveRecord::Relation</tt>.
   # Some of the modules included extend this method.
   def list_entries
-    #model_class.respond_to?(:list) ? model_scope.list : model_scope
-    model_scope.page(params[:page])
+    if params[:format] == 'json'
+      # return entire list
+      # in Rails 4, model_scope is equivalent to model_class.all
+      model_class.respond_to?(:list) ? model_scope.list : model_scope
+    else
+      # lists presented in html table format are paginated using kaminari
+      model_scope.page(params[:page])
+    end
   end
 
   # Include these modules after the #list_entries method is defined.
-  include DryCrud::Searchable
-  include DryCrud::Sortable
-
+  #include DryCrud::Searchable
+  #include DryCrud::Sortable
+  include DryCrud::Queryable
 end

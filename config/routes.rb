@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :sdr_object_versions
   resources :sdr_version_stats
   resources :replicas
+  resources :new_replicas, only: [:index, :show] # oracle view selects replicas not yet part of a tape archive
   resources :tape_archives
   resources :tape_replicas
   resources :dpn_replicas

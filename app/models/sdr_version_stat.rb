@@ -8,7 +8,7 @@ class SdrVersionStat  < ActiveRecord::Base
 
   # @return [String] the %{model} instance identifier string used in flashes or other captions.  See config/locales files
   def to_s
-    "#{sdr_object_id}-#{version_dirname}"
+    "#{sdr_object_id}-#{version_dirname}(#{inventory_type})"
   end
 
   # @return [String] The text label of the version, e.g 'v0002'
