@@ -1,0 +1,44 @@
+// Place all the styles related to apidoc output here.
+// They will automatically be included in application.css.
+
+table.queryexamples {
+  table-layout: fixed;
+  vertical-align: middle;
+}
+
+td.queryexamples {
+  vertical-align: middle;
+}
+
+h3, h4, th, caption {
+  color: darkblue;
+}
+
+th {
+  background-color: lavender;
+  font-weight: bold;
+}
+
+table {
+  color: midnightblue;
+  word-wrap: break-word;
+  width: 100%;
+  padding: 0;
+}
+
+table, th, td {
+  border: 2px solid cadetblue;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+caption, th, td {
+  padding: 5px;
+}
+
+caption {
+  text-align: left;
+  font-weight: bold;
+}
+
+

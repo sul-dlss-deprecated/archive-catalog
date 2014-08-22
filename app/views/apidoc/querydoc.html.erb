@@ -1,0 +1,45 @@
+
+<hr>
+<h3>Query Parameters</h3>
+<table>
+  <% @query_documentation[:queries].each_pair do |param_name, definition| %>
+      <tr>
+        <th><%= param_name %></th>
+        <td>
+          <table>
+            <% definition.each_pair do |key, value| %>
+                <tr>
+                  <th><%= key %></th>
+                  <td>
+                    <% value.split(';;').each do |line| %>
+                        <%= line %>
+                        <br>
+                    <% end %>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+        </td>
+      </tr>
+  <% end %>
+</table>
+
+<h3>Query Examples</h3>
+
+<table class="queryexamples">
+  <tr>
+    <% @query_documentation[:examples][0].keys.each do |header| %>
+        <th width="50%"><%= header.to_s.upcase %></th>
+    <% end %>
+  </tr>
+  <% @query_documentation[:examples].each do |example| %>
+      <tr>
+        <td class="queryexamples"><%= link_to example[:uri], example[:uri] %></td>
+        <td>
+          <pre><%= example[:sql] %></pre>
+        </td>
+      </tr>
+  <% end %>
+</table>
+
+<p><b>Unauthorized access is prohibited</b></p>

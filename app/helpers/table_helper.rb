@@ -39,7 +39,7 @@ module TableHelper
   # Create a table of the +entries+ with the default or
   # the passed attributes in its columns. An options hash may be given
   # as the last argument.
-  def list_table(*attrs, &block)
+  def   list_table(*attrs, &block)
     attrs, options = explode_attrs_with_options(attrs, &block)
     plain_table_or_message(entries, options) do |t|
       t.sortable_attrs(*attrs)
@@ -67,8 +67,10 @@ module TableHelper
 
   # Adds standard action link columns (edit, destroy) to the given table.
   def standard_table_actions(table)
-    table.edit_action_col
-    table.destroy_action_col
+    if controller.is_editable?
+      table.edit_action_col
+      table.destroy_action_col
+    end
   end
 
   private

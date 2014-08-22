@@ -14,6 +14,7 @@ class ListController < ApplicationController
   include DryCrud::Nestable
   include DryCrud::Rememberable
   include DryCrud::RenderCallbacks
+  include DryCrud::Documentable
 
   respond_to :html, :json
 
@@ -46,7 +47,7 @@ class ListController < ApplicationController
   # Some of the modules included extend this method.
   def list_entries
     if params[:format] == 'json'
-      # return entire list
+      # scope is entire list.
       # in Rails 4, model_scope is equivalent to model_class.all
       model_class.respond_to?(:list) ? model_scope.list : model_scope
     else
