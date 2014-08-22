@@ -32,6 +32,8 @@ module DryCrud
       ar_query = list_entries_without_query
       ar_query = ar_query.where(arel_condition) if params[:where]
       if params[:format] == 'json'
+        # make sure we don't ask for entire table
+        params[:limit] ||= 10
         if params[:select]
           selected_columns = arel_select_columns
           ar_query = ar_query.select(selected_columns)
@@ -121,7 +123,7 @@ module DryCrud
     def parse_where_param
       string = params[:where]
       # => "((c1)~or~(c2))~and~((d1)~or~(d2))"
-      yaml = '[' + string.gsub('(', '[').gsub(')', ']').gsub('~', ', ') + ']'
+      yaml = '[' + string.gsub('(', '[').gsub(')', ']').gsub('~', ', ').gsub(':','&colon;') + ']'
       # => "[[[c1], or, [c2]], and, [[d1], or, [d2]]]"
       array = YAML.load yaml
       # => [[["c1"], "or", ["c2"]], "and", [["d1"], "or", ["d2"]]]
@@ -160,6 +162,7 @@ module DryCrud
     # @return [Arel::Nodes::Predications]
     def arel_predicate_node(predicate_string)
       column_name, operator, value = parse_predicate(predicate_string)
+      value.gsub!('&colon;',':')
       value = value.split(' ') if operator.include?('in')
       node = table[column_name].send(operator, value)
       node
@@ -274,9 +277,9 @@ module DryCrud
       text_columns = if params[:order]
                        params[:order].split(' ')
                      elsif self.default_sort
-                       self.default_sort
+                       [self.default_sort].flatten
                      else
-                       model_class.primary_key
+                       [model_class.primary_key].flatten
                      end
       sort_columns = text_columns.map do |column|
         if column.to_s.include?('.')

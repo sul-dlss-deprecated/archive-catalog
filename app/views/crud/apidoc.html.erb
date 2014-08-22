@@ -1,0 +1,62 @@
+
+<% @title ||= "#{model_class.name}s Documentation"%>
+
+<body>
+<h3>Table</h3>
+<table>
+  <% @documentation[:table].each_pair do |property, value| %>
+      <tr>
+        <th><%= property %></th>
+        <td><%= value %></td>
+      </tr>
+  <% end %>
+</table>
+
+<h3>Table Columns</h3>
+<table>
+  <tr>
+    <% @documentation[:columns][0].keys.each do |header| %>
+        <th><%= header %></th>
+    <% end %>
+  </tr>
+  <% @documentation[:columns].each do |column| %>
+      <tr>
+        <% column.values.each do |value| %>
+            <td><%= value %></td>
+        <% end %>
+      </tr>
+  <% end %>
+</table>
+
+<h3>Table Actions</h3>
+<table>
+  <tr>
+    <% @documentation[:actions][0].keys.each do |header| %>
+        <th><%= header %></th>
+    <% end %>
+  </tr>
+  <% @documentation[:actions].each do |column| %>
+      <tr>
+        <% column.values.each do |value| %>
+            <td><%= value %></td>
+        <% end %>
+      </tr>
+  <% end %>
+</table>
+
+<h3>Input/Output Formats</h3>
+<table>
+  <% @documentation[:formats].each_pair do |format_name, description| %>
+      <tr>
+        <th><%= format_name %></th>
+        <td><%= description %></td>
+      </tr>
+  <% end %>
+</table>
+
+<h3>Modifying selection and display criteria for lists</h3>
+
+<p>See <a href="/querydoc">Search/Query Documentation</a></p>
+
+</body>
+

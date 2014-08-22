@@ -3,12 +3,15 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'apidoc#index'
+
+  get "index" => 'apidoc#index'
+  get "apidoc" => 'apidoc#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
-  get "welcome/index"
+  get "querydoc" => 'apidoc#querydoc'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
@@ -16,16 +19,35 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  resources :digital_objects
-  resources :dpn_objects
-  resources :sdr_objects
-  resources :sdr_object_versions
-  resources :sdr_version_stats
-  resources :replicas
-  resources :new_replicas, only: [:index, :show] # oracle view selects replicas not yet part of a tape archive
-  resources :tape_archives
-  resources :tape_replicas
-  resources :dpn_replicas
+  tables = [
+   :digital_objects,
+   :dpn_objects,
+   :sdr_objects,
+   :sdr_object_versions,
+   :sdr_version_stats,
+   :replicas,
+   :tape_archives,
+   :tape_replicas,
+   :dpn_replicas
+  ]
+
+  # Add the apidoc action to each table resource
+  tables.each do |resource|
+    resources resource do
+      get :apidoc, :on => :collection
+    end
+  end
+
+  views = [:new_replicas]
+
+  # Make views read-only, and add the apidoc action
+  views.each do |resource|
+    resources resource, only: [:index, :show] do
+      collection do
+        get :apidoc
+      end
+    end
+  end
 
   # Example resource route with options:
   #   resources :products do

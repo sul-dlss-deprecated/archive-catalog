@@ -1,6 +1,8 @@
 <% @title ||= ti(:title, models: models_label) -%>
 
-<% content_for(:actions, render('actions_index')) %>
+<% if controller.is_editable? %>
+    <% content_for(:actions, render('actions_index')) %>
+<% end %>
 
 <%= render 'list' %>
 
