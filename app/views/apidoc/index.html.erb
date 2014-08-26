@@ -8,9 +8,9 @@
       </tr>
   <% @tables_and_views[:tables].each_pair do |name,description| %>
     <tr>
-      <td><%= link_to(name,"/#{name}") %></td>
+      <td><%= link_to(name.to_s,File.join(root_path,name.to_s)) %></td>
       <td><%= description %></td>
-      <td><%= link_to('details',"/#{name}/apidoc") %></td>
+      <td><%= link_to('details',File.join(root_path,name.to_s,'apidoc')) %></td>
     </tr>
   <% end %>
 </table>
@@ -24,9 +24,9 @@
       </tr>
   <% @tables_and_views[:views].each_pair do |name,description| %>
     <tr>
-      <td><%= link_to(name,"/#{name}") %></td>
+      <td><%= link_to(name.to_s,File.join(root_path,name.to_s)) %></td>
       <td><%= description %></td>
-      <td><%= link_to('details',"/#{name}/apidoc") %></td>
+      <td><%= link_to('details',File.join(root_path,name.to_s,'apidoc')) %></td>
     </tr>
   <% end %>
 </table>

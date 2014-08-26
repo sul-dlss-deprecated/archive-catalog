@@ -34,7 +34,7 @@
   </tr>
   <% @query_documentation[:examples].each do |example| %>
       <tr>
-        <td class="queryexamples"><%= link_to example[:uri], example[:uri] %></td>
+        <td class="queryexamples"><%= link_to example[:uri], File.join(root_path,example[:uri]) %></td>
         <td>
           <pre><%= example[:sql] %></pre>
         </td>

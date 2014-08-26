@@ -1,12 +1,12 @@
 <%= link_to 'SDR Archive Catalog', root_path, class: 'navbar-brand' %>
 <ul class="nav navbar-nav">
   <% unless params[:controller] == "apidoc" and  params[:action] == 'index' %>
-     <li><%= link_to "Tables & Views", "/" %></li>
+     <li><%= link_to "Tables & Views", root_path %></li>
   <% end %>
   <% if params[:controller] != "apidoc" and params[:action]  != "apidoc" %>
-      <li><%= link_to "#{models_label} Help", "/#{params[:controller]}/apidoc" %></li>
+      <li><%= link_to "#{models_label} Help", File.join(root_path,params[:controller],'apidoc') %></li>
   <% end %>
   <% if params[:action] != "querydoc" %>
-      <li><%= link_to "Query Help", "/querydoc" %></li>
+      <li><%= link_to "Query Help", File.join(root_path,'querydoc') %></li>
   <% end %>
 </ul>
