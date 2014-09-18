@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: sdr_objects
+#
+#  sdr_object_id    :string(17)       not null, primary key
+#  object_type      :string(20)       not null
+#  governing_object :string(17)
+#  object_label     :string(100)
+#  latest_version   :integer
+#
+
 class SdrObject  < ActiveRecord::Base
   self.primary_key = :sdr_object_id
   belongs_to :digital_object, foreign_key:'digital_object_id'

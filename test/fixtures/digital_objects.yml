@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: digital_objects
+#
+#  digital_object_id :integer          not null, primary key
+#  home_repository   :string(3)        not null
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 # This model initially had no columns defined.  If you add columns to the

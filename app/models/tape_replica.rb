@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: tape_replicas
+#
+#  replica_id      :string(40)       not null, primary key
+#  tape_archive_id :string(32)       not null, primary key
+#
+
 class TapeReplica  < ActiveRecord::Base
   self.primary_keys = :replica_id, :tape_archive_id
   validates :replica_id, :presence => true

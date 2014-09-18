@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: sdr_object_versions
+#
+#  sdr_object_id  :string(17)       not null, primary key
+#  sdr_version_id :integer          not null, primary key
+#  ingest_date    :timestamp(6)
+#  replica_id     :string(23)
+#
+
 class SdrObjectVersion  < ActiveRecord::Base
   self.primary_keys = :sdr_object_id, :sdr_version_id
   belongs_to :sdr_object, primary_key: :sdr_object_id, foreign_key: :sdr_object_id

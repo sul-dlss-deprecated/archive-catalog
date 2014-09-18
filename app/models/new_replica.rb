@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: new_replicas
+#
+#  replica_id          :string(40)       not null, primary key
+#  home_repository     :string(3)        not null
+#  create_date         :timestamp(6)     not null
+#  payload_size        :integer          not null
+#  payload_fixity_type :string(7)        not null
+#  payload_fixity      :string(64)       not null
+#
+
 
 # CREATE OR REPLACE FORCE VIEW "SEDORA_DEV"."NEW_REPLICAS" ("REPLICA_ID", "HOME_REPOSITORY", "CREATE_DATE", "PAYLOAD_SIZE", "PAYLOAD_FIXITY_TYPE", "PAYLOAD_FIXITY")
 # AS

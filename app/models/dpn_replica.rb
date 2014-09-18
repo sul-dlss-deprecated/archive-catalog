@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: dpn_replicas
+#
+#  replica_id    :integer          not null, primary key
+#  dpn_object_id :string(40)       not null
+#  submit_date   :timestamp(6)     not null
+#  accept_date   :timestamp(6)     not null
+#  verify_date   :timestamp(6)
+#
+
 class DpnReplica  < ActiveRecord::Base
   self.primary_key = :replica_id
   validates :replica_id, :presence => true
