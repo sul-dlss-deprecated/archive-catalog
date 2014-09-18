@@ -49,6 +49,9 @@ gem 'kaminari'
 # https://github.com/composite-primary-keys/composite_primary_keys
 gem 'composite_primary_keys', '~> 7.0'
 
+# https://github.com/ctran/annotate_models
+gem 'annotate', '~> 2.6.5'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7' # formerly bcrypt-ruby
 
