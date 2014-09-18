@@ -1,13 +1,3 @@
-GIT
-  remote: git://github.com/sul-dlss/lyberteam-capistrano-devel.git
-  revision: 08870ca1505a674a9da0b8bfd3f36a35a637e7c2
-  specs:
-    lyberteam-capistrano-devel (3.0.0)
-      capistrano (~> 3.0)
-      capistrano-bundle_audit
-      capistrano-one_time_key
-      capistrano-releaseboard
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -92,6 +82,11 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     libv8 (3.16.14.7)
+    lyberteam-capistrano-devel (3.1.0.pre1)
+      capistrano (~> 3.0)
+      capistrano-bundle_audit (~> 0)
+      capistrano-one_time_key (~> 0)
+      capistrano-releaseboard (~> 0)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
     mime-types (2.3)
@@ -175,7 +170,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   kaminari
-  lyberteam-capistrano-devel!
+  lyberteam-capistrano-devel (= 3.1.0.pre1)
   rails (~> 4.1)
   ruby-oci8
   sass-rails (~> 4.0)
