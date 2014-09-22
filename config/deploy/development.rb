@@ -1,14 +1,40 @@
+# Note: capistrano reads this file AFTER config/deploy.rb
 
-# Userid used for deployment
-ask :user, 'for deployment to user@hostname'
+# User for deployment
+if ENV['SDR_USER'].nil?
+  ask :user, 'for deployment to user@hostname'
+  ENV['SDR_USER'] = fetch(:user)
+end
 
 # Server deployed to
-ask :hostname, 'for deployment to user@hostname'
+if ENV['SDR_HOST'].nil?
+  ask :hostname, 'for deployment to user@hostname'
+  ENV['SDR_HOST'] = fetch(:hostname)
+end
 
-# Default deploy_to directory is /var/www/my_app
-set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
+ENV['SDR_APP']  ||= fetch(:application)
+ENV['SDR_HOST'] ||= 'localhost'
+ENV['SDR_USER'] ||= `echo $USER`.chomp
+puts 'deploy/development.rb ENV:'
+puts "ENV['SDR_APP']  = #{ENV['SDR_APP']}"
+puts "ENV['SDR_HOST'] = #{ENV['SDR_HOST']}"
+puts "ENV['SDR_USER'] = #{ENV['SDR_USER']}"
+puts
 
-# set the server variable
-server fetch(:hostname), user: fetch(:user), roles: %w{app}
+# Set the ENV on the remote system given by ENV['SDR_HOST']
+set :default_env, {
+    # ROBOT_ENVIRONMENT implies remote :deploy_to path contains:
+    # config/environments/#{ROBOT_ENVIRONMENT}.rb
+    # config/environments/robots_#{ROBOT_ENVIRONMENT}.rb
+    'ROBOT_ENVIRONMENT' => 'development',
+    'SDR_APP'  => ENV['SDR_APP'],
+    'SDR_USER' => ENV['SDR_USER'],
+    'SDR_HOST' => ENV['SDR_HOST'],
+}
+
+server ENV['SDR_HOST'], user: ENV['SDR_USER'], roles: %w{app}
 Capistrano::OneTimeKey.generate_one_time_key!
 
+# Target path
+USER_HOME = `ssh #{ENV['SDR_USER']}@#{ENV['SDR_HOST']} 'echo $HOME'`.chomp
+set :deploy_to, "#{USER_HOME}/#{ENV['SDR_APP']}"
