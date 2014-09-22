@@ -7,20 +7,6 @@ set :repo_url, 'https://github.com/sul-dlss/archive-catalog.git'
 # Default branch = whatever is currently checked out
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-# Userid used for deployment
-ask :user, 'for deployment to user@hostname'
-
-# Server deployed to
-ask :hostname, 'for deployment to user@hostname'
-
-# Default deploy_to directory is /var/www/my_app
-set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
-
-# set the server variable
-server fetch(:hostname), user: fetch(:user), roles: %w{app}
-
-Capistrano::OneTimeKey.generate_one_time_key!
-
 # Default value for :scm is :git
 # set :scm, :git
 
@@ -58,3 +44,6 @@ namespace :deploy do
   after :publishing, :restart
 
 end
+
+# capistrano next reads config/deploy/#{target}.rb, e.g.:
+# config/deploy/development.rb
