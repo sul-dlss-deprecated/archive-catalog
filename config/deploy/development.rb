@@ -15,7 +15,7 @@ end
 ENV['SDR_APP']  ||= fetch(:application)
 ENV['SDR_HOST'] ||= 'localhost'
 ENV['SDR_USER'] ||= `echo $USER`.chomp
-puts 'deploy/development.rb ENV:'
+puts File.expand_path(__FILE__)
 puts "ENV['SDR_APP']  = #{ENV['SDR_APP']}"
 puts "ENV['SDR_HOST'] = #{ENV['SDR_HOST']}"
 puts "ENV['SDR_USER'] = #{ENV['SDR_USER']}"
