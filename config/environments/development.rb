@@ -1,5 +1,8 @@
-Rails.application.configure do
+ArchiveCatalog::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+
+  # Enable this for an apache virtual server config
+  #config.action_controller.relative_url_root = '/archives'
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -13,11 +16,26 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
+  # Configure static asset server for tests with Cache-Control for performance.
+  #config.serve_static_assets  = true
+  #config.static_cache_control = "public, max-age=3600"
+
+  # Disable request forgery protection.
+  config.action_controller.allow_forgery_protection = false
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+
+
+
+
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+
+  # Don't raise exceptions, render exception templates.
+  config.action_dispatch.show_exceptions = true
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
@@ -34,4 +52,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
 end
+
