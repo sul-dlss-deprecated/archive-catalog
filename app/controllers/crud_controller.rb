@@ -64,7 +64,7 @@ class CrudController < ListController
     respond_with(entry, respond_options, &block)
   end
 
-  # Display a form to edit an exisiting entry of this model.
+  # Display a form to edit an existing entry of this model.
   #   GET /entries/1/edit
   def edit(&block)
     respond_with(entry, &block)
