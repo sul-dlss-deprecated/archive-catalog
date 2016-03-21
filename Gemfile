@@ -71,4 +71,4 @@ group :deployment do
 end
 
 # Use debugger
-gem 'pry', group: [:development, :test]
+gem 'pry'
