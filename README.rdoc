@@ -1,3 +1,10 @@
+
+The functionality of this application is also integrated into the sdr-services-app, e.g. see
+
+- https://github.com/sul-dlss/sdr-services-app/blob/master/lib/sdr/archive_catalog_api.rb
+- https://github.com/sul-dlss/sdr-services-app/blob/master/lib/sdr/archive_catalog_sql.rb
+
+
 == README
 
 This README would normally document whatever steps are necessary to get the
