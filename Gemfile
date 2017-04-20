@@ -66,8 +66,7 @@ group :deployment do
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler', '~> 1.1'
   gem 'capistrano-rvm', '~> 0.1'
-  # gem 'lyberteam-capistrano-devel', '~> 3.0'
-  gem 'lyberteam-capistrano-devel', '3.1.0.pre1' #github: 'sul-dlss/lyberteam-capistrano-devel'
+  gem 'dlss-capistrano'
 end
 
 # Use debugger
